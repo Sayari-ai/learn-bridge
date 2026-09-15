@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Warm, sunny palette grounded in the Benin context */
+  --background: #fff8ec;
+  --foreground: #3d2c1e;
+  --mango: #f59e0b;
+  --mango-deep: #d97706;
+  --leaf: #16a34a;
+  --leaf-deep: #15803d;
+  --sky: #38bdf8;
+  --sky-deep: #0284c7;
+  --berry: #e11d48;
+  --sun: #fde047;
+  --card: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-mango: var(--mango);
+  --color-mango-deep: var(--mango-deep);
+  --color-leaf: var(--leaf);
+  --color-leaf-deep: var(--leaf-deep);
+  --color-sky: var(--sky);
+  --color-sky-deep: var(--sky-deep);
+  --color-berry: var(--berry);
+  --color-sun: var(--sun);
+  --color-card: var(--card);
+  --font-sans: var(--font-baloo);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-baloo), "Comic Sans MS", cursive, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+/* Playful micro-animations */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes bounce-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 22px rgba(245, 158, 11, 0);
+  }
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(105vh) rotate(720deg);
+    opacity: 0.6;
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.35s ease-out both;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.9s ease-in-out infinite;
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 1.6s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 1.4s ease-out infinite;
+}
+
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  animation: confetti-fall 2.8s linear both;
+  pointer-events: none;
+  z-index: 50;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop-in,
+  .animate-wiggle,
+  .animate-bounce-soft,
+  .animate-pulse-ring,
+  .confetti-piece {
+    animation: none;
+  }
 }
